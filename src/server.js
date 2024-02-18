@@ -11,4 +11,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const productsRouter = require("./routes/products.js");
+app.use("/products", productsRouter);
+
 module.exports = app;
