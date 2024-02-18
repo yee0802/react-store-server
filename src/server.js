@@ -14,4 +14,13 @@ app.use(express.urlencoded({ extended: true }));
 const productsRouter = require("./routes/products.js");
 app.use("/products", productsRouter);
 
+app.get("*", (req, res) => {
+  res.status(404).json({
+    status: "fail",
+    data: {
+      resource: "Not found",
+    },
+  });
+});
+
 module.exports = app;
