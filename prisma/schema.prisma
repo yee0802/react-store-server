@@ -28,4 +28,6 @@ model Category {
   products Product[]
   name String
   imageURL String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
