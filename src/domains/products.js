@@ -7,6 +7,13 @@ const getAllProductsDb = async () =>
     },
   });
 
+const getProductByIdDb = async (id) =>
+  await prisma.product.findUnique({
+    where: { id },
+    include: { category: true },
+  });
+
 module.exports = {
   getAllProductsDb,
+  getProductByIdDb,
 };
