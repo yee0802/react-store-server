@@ -4,7 +4,7 @@ const getAllProducts = async (req, res) => {
   try {
     const allProducts = await getAllProductsDb();
 
-    return res.status(200).send({ data: allProducts });
+    return res.status(200).send({ products: allProducts });
   } catch (e) {
     console.log("Error getting all products:", e.message);
     return res.status(e.status ?? 500).send({ error: e.message });
@@ -25,7 +25,7 @@ const getProductById = async (req, res) => {
       return res.status(404).send({ error: "No product found with given ID" });
     }
 
-    return res.status(200).send({ data: foundProduct });
+    return res.status(200).send({ product: foundProduct });
   } catch (e) {
     console.log("Error getting product with ID:", e.message);
     return res.status(e.status ?? 500).send({ error: e.message });
