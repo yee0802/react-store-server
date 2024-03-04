@@ -1,8 +1,8 @@
-const { getAllProductsDb, getProductByIdDb } = require("../domains/products");
+const Product = require("../domains/products");
 
 const getAllProducts = async (req, res) => {
   try {
-    const allProducts = await getAllProductsDb();
+    const allProducts = await Product.getAllProducts();
 
     return res.status(200).send({ products: allProducts });
   } catch (e) {
@@ -14,12 +14,8 @@ const getAllProducts = async (req, res) => {
 const getProductById = async (req, res) => {
   const id = Number(req.params.id);
 
-  if (!id) {
-    return res.status(400).send({ error: "No ID provided" });
-  }
-
   try {
-    const foundProduct = await getProductByIdDb(id);
+    const foundProduct = await Product.getProductById(id);
 
     if (!foundProduct) {
       return res.status(404).send({ error: "No product found with given ID" });
