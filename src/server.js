@@ -13,6 +13,9 @@ app.use(express.urlencoded({ extended: true }));
 import productsRouter from "./routes/products.js";
 app.use("/products", productsRouter);
 
+import categoriesRouter from "./routes/categories.js";
+app.use("/categories", categoriesRouter);
+
 app.get("*", (req, res) => {
   res.status(404).json({
     status: "fail",
