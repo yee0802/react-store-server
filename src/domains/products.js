@@ -1,6 +1,6 @@
-const prisma = require("../utils/prisma");
+import prisma from "../utils/prisma.js";
 
-class Product {
+export default class Product {
   constructor(
     id = null,
     title = null,
@@ -66,5 +66,3 @@ class Product {
     return product;
   }
 }
-
-module.exports = Product;

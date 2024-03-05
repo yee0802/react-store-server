@@ -1,4 +1,4 @@
-const prisma = require("../src/utils/prisma.js");
+import prisma from "../src/utils/prisma.js";
 
 async function seed() {
   const createdCategories = await prisma.category.createMany({
