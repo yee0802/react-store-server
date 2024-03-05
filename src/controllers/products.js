@@ -1,6 +1,6 @@
-const Product = require("../domains/products");
+import Product from "../domains/products.js";
 
-const getAllProducts = async (req, res) => {
+export const getAllProducts = async (req, res) => {
   try {
     const allProducts = await Product.getAllProducts();
 
@@ -11,7 +11,7 @@ const getAllProducts = async (req, res) => {
   }
 };
 
-const getProductById = async (req, res) => {
+export const getProductById = async (req, res) => {
   const id = Number(req.params.id);
 
   try {
@@ -26,9 +26,4 @@ const getProductById = async (req, res) => {
     console.log("Error getting product with ID:", e.message);
     return res.status(e.status ?? 500).send({ error: e.message });
   }
-};
-
-module.exports = {
-  getAllProducts,
-  getProductById,
 };
