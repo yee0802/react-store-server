@@ -31,7 +31,13 @@ export default class Product {
   static async _findMany() {
     return prisma.product.findMany({
       include: {
-        category: true,
+        category: {
+          select: {
+            id: true,
+            name: true,
+            imageURL: true,
+          },
+        },
       },
     });
   }
@@ -42,7 +48,13 @@ export default class Product {
         [key]: value,
       },
       include: {
-        category: true,
+        category: {
+          select: {
+            id: true,
+            name: true,
+            imageURL: true,
+          },
+        },
       },
     });
   }
@@ -64,5 +76,26 @@ export default class Product {
     const product = Product.fromDb(foundProduct);
 
     return product;
+  }
+
+  static async getProductsByIds(ids) {
+    const foundProducts = await prisma.product.findMany({
+      where: {
+        id: { in: ids },
+      },
+      include: {
+        category: {
+          select: {
+            id: true,
+            name: true,
+            imageURL: true,
+          },
+        },
+      },
+    });
+
+    const allProducts = foundProducts.map(Product.fromDb);
+
+    return allProducts;
   }
 }
