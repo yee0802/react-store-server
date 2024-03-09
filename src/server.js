@@ -16,8 +16,11 @@ app.use("/products", productsRouter);
 import categoriesRouter from "./routes/categories.js";
 app.use("/categories", categoriesRouter);
 
+import { createStripeCheckoutSession } from "./controllers/stripe.js";
+app.post("/create-checkout-session", createStripeCheckoutSession);
+
 app.get("*", (req, res) => {
-  res.status(404).json({
+  res.status(404).send({
     status: "fail",
     data: {
       resource: "Not found",
