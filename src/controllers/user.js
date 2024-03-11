@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { createUserDb, getUserByUsernameDb } from "../domains/user";
+import { createUserDb, getUserByUsernameDb } from "../domains/user.js";
 
 export const createUser = async (req, res) => {
   try {
