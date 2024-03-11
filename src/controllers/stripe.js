@@ -1,4 +1,5 @@
 import Product from "../domains/products.js";
+import throwNewError from "../error/index.js";
 import stripe from "../services/stripe.js";
 
 const getProductIdToProductMap = async (itemsToBuy) => {
@@ -21,7 +22,7 @@ const verifyItems = async (itemsToBuy) => {
     itemsToBuy.length === 0 ||
     itemsToBuy.length > 20
   ) {
-    throw new Error("Bad request");
+    throwNewError("Bad request", 400);
   }
 
   const uniqueIds = [];
@@ -32,11 +33,11 @@ const verifyItems = async (itemsToBuy) => {
 
   for (const item of itemsToBuy) {
     if (!item.id || !item.quantity) {
-      throw new Error("Missing fields in request body");
+      throwNewError("Missing fields in request body", 400);
     }
 
     if (uniqueIds.includes(parseInt(item.id))) {
-      throw new Error("One or more provided products have duplicate IDs");
+      throwNewError("One or more provided products have duplicate IDs", 400);
     }
 
     uniqueIds.push(parseInt(item.id));
@@ -44,7 +45,7 @@ const verifyItems = async (itemsToBuy) => {
     const foundProduct = productIdToProductMap[item.id];
 
     if (!foundProduct) {
-      throw new Error("One or more provided products have not been found");
+      throwNewError("One or more provided products have not been found", 404);
     }
 
     const verifiedItem = {

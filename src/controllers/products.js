@@ -1,4 +1,5 @@
 import Product from "../domains/products.js";
+import throwNewError from "../error/index.js";
 
 export const getAllProducts = async (req, res) => {
   try {
@@ -12,13 +13,17 @@ export const getAllProducts = async (req, res) => {
 };
 
 export const getProductById = async (req, res) => {
-  const id = Number(req.params.id);
-
   try {
+    const id = Number(req.params.id);
+
+    if (isNaN(id)) {
+      throwNewError("Invalid ID: Please provide a valid number", 400);
+    }
+
     const foundProduct = await Product.getProductById(id);
 
     if (!foundProduct) {
-      return res.status(404).send({ error: "No product found with given ID" });
+      throwNewError("No product found with provided ID", 404);
     }
 
     return res.status(200).send({ product: foundProduct });

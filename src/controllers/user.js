@@ -1,14 +1,13 @@
 import bcrypt from "bcrypt";
 import { createUserDb, getUserByUsernameDb } from "../domains/user.js";
+import throwNewError from "../error/index.js";
 
 export const createUser = async (req, res) => {
   try {
     const { username, password, email } = req.body;
 
     if (!username || !password || !email) {
-      const error = new Error("Missing fields in request body");
-      error.status = 400;
-      throw error;
+      throwNewError("Missing fields in request body", 400);
     }
 
     if (
@@ -16,24 +15,18 @@ export const createUser = async (req, res) => {
       typeof password !== "string" ||
       typeof email !== "string"
     ) {
-      const error = new Error("Bad request");
-      error.status = 400;
-      throw error;
+      throwNewError("Bad request", 400);
     }
 
     const usernameIsDuplicate = await getUserByUsernameDb(username);
 
     if (usernameIsDuplicate) {
-      const error = new Error(
-        "A user with the provided username already exists"
-      );
-      error.status = 400;
-      throw error;
+      throwNewError("A user with the provided username already exists", 400);
     }
 
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    const createdUser = await createUserDb(username, hashedPassword);
+    const createdUser = await createUserDb(username, hashedPassword, email);
 
     return res.status(201).send({ user: createdUser });
   } catch (e) {

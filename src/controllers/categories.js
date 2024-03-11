@@ -1,4 +1,5 @@
 import Category from "../domains/categories.js";
+import throwNewError from "../error/index.js";
 
 export const getAllCategories = async (req, res) => {
   try {
@@ -12,19 +13,17 @@ export const getAllCategories = async (req, res) => {
 };
 
 export const getCategoryById = async (req, res) => {
-  const id = Number(req.params.id);
-
-  if (isNaN(id)) {
-    return res
-      .status(401)
-      .send({ error: "Invalid ID: Please provide a valid number" });
-  }
-
   try {
+    const id = Number(req.params.id);
+
+    if (isNaN(id)) {
+      throwNewError("Invalid ID: Please provide a valid number", 400);
+    }
+
     const foundCategory = await Category.getCategoryById(id);
 
     if (!foundCategory) {
-      return res.status(404).send({ error: "No category found with given ID" });
+      throwNewError("No category found with given ID", 404);
     }
 
     return res.status(200).send({ category: foundCategory });
