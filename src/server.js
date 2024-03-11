@@ -16,6 +16,9 @@ app.use("/products", productsRouter);
 import categoriesRouter from "./routes/categories.js";
 app.use("/categories", categoriesRouter);
 
+import userRouter from "./routes/user.js";
+app.use("/user", userRouter);
+
 import { createStripeCheckoutSession } from "./controllers/stripe.js";
 app.post("/create-checkout-session", createStripeCheckoutSession);
 
