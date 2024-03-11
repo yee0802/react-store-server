@@ -9,3 +9,16 @@ export const getUserByUsernameDb = async (username) =>
       email: true,
     },
   });
+
+export const createUserDb = async (username, passwordHash) =>
+  await prisma.user.create({
+    data: {
+      username,
+      passwordHash,
+    },
+    select: {
+      id: true,
+      username: true,
+      email: true,
+    },
+  });
