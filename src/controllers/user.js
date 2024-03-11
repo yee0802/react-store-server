@@ -3,10 +3,20 @@ import { createUserDb, getUserByUsernameDb } from "../domains/user.js";
 
 export const createUser = async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { username, password, email } = req.body;
 
-    if (!username || !password) {
+    if (!username || !password || !email) {
       const error = new Error("Missing fields in request body");
+      error.status = 400;
+      throw error;
+    }
+
+    if (
+      typeof username !== "string" ||
+      typeof password !== "string" ||
+      typeof email !== "string"
+    ) {
+      const error = new Error("Bad request");
       error.status = 400;
       throw error;
     }
