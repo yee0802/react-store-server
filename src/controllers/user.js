@@ -1,5 +1,9 @@
 import bcrypt from "bcrypt";
-import { createUserDb, getUserByUsernameDb } from "../domains/user.js";
+import {
+  createUserDb,
+  getUserByEmailDb,
+  getUserByUsernameDb,
+} from "../domains/user.js";
 import throwNewError from "../error/index.js";
 
 export const createUser = async (req, res) => {
@@ -19,9 +23,13 @@ export const createUser = async (req, res) => {
     }
 
     const usernameIsDuplicate = await getUserByUsernameDb(username);
+    const emailIsDuplicate = await getUserByEmailDb(email);
 
-    if (usernameIsDuplicate) {
-      throwNewError("A user with the provided username already exists", 400);
+    if (usernameIsDuplicate || emailIsDuplicate) {
+      throwNewError(
+        "A user with the provided username and/or email already exists",
+        400
+      );
     }
 
     const hashedPassword = await bcrypt.hash(password, 12);
