@@ -20,7 +20,8 @@ import userRouter from "./routes/user.js";
 app.use("/user", userRouter);
 
 import { createStripeCheckoutSession } from "./controllers/stripe.js";
-app.post("/create-checkout-session", createStripeCheckoutSession);
+import { verifyToken } from "./middleware/auth.js";
+app.post("/create-checkout-session", verifyToken, createStripeCheckoutSession);
 
 app.get("*", (req, res) => {
   res.status(404).send({
