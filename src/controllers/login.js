@@ -19,9 +19,7 @@ export const login = async (req, res) => {
     }
 
     const secret = process.env.JWT_SECRET;
-    const token = jwt.sign({ username: foundUser.username }, secret);
-
-    delete foundUser.passwordHash;
+    const token = jwt.sign({ userId: foundUser.id }, secret);
 
     return res.status(200).send({ token: token });
   } catch (e) {
