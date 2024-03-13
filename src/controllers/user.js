@@ -6,6 +6,17 @@ import {
 } from "../domains/user.js";
 import throwNewError from "../error/index.js";
 
+export const getUserById = async (req, res) => {
+  try {
+    const foundUser = req.user;
+
+    return res.status(200).send({ user: foundUser });
+  } catch (e) {
+    console.log("Error finding user by ID:", e.message);
+    return res.status(e.status ?? 500).send({ error: e.message });
+  }
+};
+
 export const createUser = async (req, res) => {
   try {
     const { username, password, email } = req.body;
