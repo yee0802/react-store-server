@@ -7,6 +7,15 @@ export const getUserByIdDb = async (id) =>
       id: true,
       username: true,
       email: true,
+      savedItems: {
+        select: {
+          id: true,
+          title: true,
+          description: true,
+          price: true,
+          imageURL: true,
+        },
+      },
       profile: {
         select: {
           id: true,
