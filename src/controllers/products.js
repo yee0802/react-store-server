@@ -1,9 +1,9 @@
-import Product from "../domains/products.js";
+import { getAllProductsDb, getProductByIdDb } from "../domains/products.js";
 import throwNewError from "../error/index.js";
 
 export const getAllProducts = async (req, res) => {
   try {
-    const allProducts = await Product.getAllProducts();
+    const allProducts = await getAllProductsDb();
 
     return res.status(200).send({ products: allProducts });
   } catch (e) {
@@ -20,7 +20,7 @@ export const getProductById = async (req, res) => {
       throwNewError("Invalid ID: Please provide a valid number", 400);
     }
 
-    const foundProduct = await Product.getProductById(id);
+    const foundProduct = await getProductByIdDb(id);
 
     if (!foundProduct) {
       throwNewError("No product found with provided ID", 404);

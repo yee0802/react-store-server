@@ -1,9 +1,12 @@
-import Category from "../domains/categories.js";
+import {
+  getAllCategoriesDb,
+  getCategoryByIdDb,
+} from "../domains/categories.js";
 import throwNewError from "../error/index.js";
 
 export const getAllCategories = async (req, res) => {
   try {
-    const allCategories = await Category.getAllCategories();
+    const allCategories = await getAllCategoriesDb();
 
     return res.status(200).send({ categories: allCategories });
   } catch (e) {
@@ -20,7 +23,7 @@ export const getCategoryById = async (req, res) => {
       throwNewError("Invalid ID: Please provide a valid number", 400);
     }
 
-    const foundCategory = await Category.getCategoryById(id);
+    const foundCategory = await getCategoryByIdDb(id);
 
     if (!foundCategory) {
       throwNewError("No category found with given ID", 404);

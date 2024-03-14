@@ -1,11 +1,11 @@
-import Product from "../domains/products.js";
+import { getProductsByIdsDb } from "../domains/products.js";
 import throwNewError from "../error/index.js";
 import stripe from "../services/stripe.js";
 
 const getProductIdToProductMap = async (itemsToBuy) => {
   const itemIds = itemsToBuy.map(({ id }) => parseInt(id));
 
-  const allProductsByIds = await Product.getProductsByIds(itemIds);
+  const allProductsByIds = await getProductsByIdsDb(itemIds);
 
   const productIdToProductMap = {};
 
