@@ -62,3 +62,32 @@ export const createUserDb = async (username, passwordHash, email) =>
       email: true,
     },
   });
+
+export const updateUserByIdDb = async (id, dataToUpdate) =>
+  await prisma.user.update({
+    where: { id },
+    data: dataToUpdate,
+    select: {
+      id: true,
+      username: true,
+      email: true,
+      savedItems: {
+        select: {
+          id: true,
+          title: true,
+          description: true,
+          price: true,
+          imageURL: true,
+        },
+      },
+      profile: {
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          imageURL: true,
+          bio: true,
+        },
+      },
+    },
+  });
