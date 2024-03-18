@@ -19,6 +19,9 @@ app.use("/categories", categoriesRouter);
 import userRouter from "./routes/user.js";
 app.use("/user", userRouter);
 
+import profileRouter from "./routes/profile.js";
+app.use("/profile", profileRouter);
+
 import { createStripeCheckoutSession } from "./controllers/stripe.js";
 import { verifyToken } from "./middleware/auth.js";
 app.post("/create-checkout-session", verifyToken, createStripeCheckoutSession);
