@@ -25,7 +25,7 @@ async function seed() {
       },
     ],
   });
-  console.log("Created categories:", createdCategories);
+  console.log("Created categories:", createdCategories.count);
 
   const createdProducts = await prisma.product.createMany({
     data: [
@@ -440,7 +440,7 @@ async function seed() {
     ],
   });
 
-  console.log("Created Products:", createdProducts);
+  console.log("Created Products:", createdProducts.count);
 
   process.exit(0);
 }
