@@ -16,7 +16,7 @@ To run a local copy on your machine, please follow the steps below:
 
 ### Pre-requisites
 
-Install Node.js or update npm to lastest version
+Install [Node.js](https://nodejs.org/en/download/current) or update npm to lastest version
 
 ```bash
  npm install npm@latest -g
@@ -81,6 +81,6 @@ Install Node.js or update npm to lastest version
 
 ## Credits
 
-Initial data seeding from [Fake Store API](https://fakeapi.platzi.com)
+Dataset from [Fake Store API](https://fakeapi.platzi.com)
 
 Created by Kye Yee 2024
